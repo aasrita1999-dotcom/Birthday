@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 body{
 margin:0;
 height:100vh;
-font-family: 'Segoe UI', sans-serif;
+font-family:'Segoe UI',sans-serif;
 text-align:center;
 background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3a5);
 overflow:hidden;
@@ -53,7 +54,7 @@ color:white;
 position:relative;
 }
 
-/* message section */
+/* message */
 
 #message{
 display:none;
@@ -104,26 +105,26 @@ opacity:0;
 }
 }
 
-/* floating I LOVE YOU */
+/* I LOVE YOU falling */
 
 .loveFloat{
 position:absolute;
 font-size:22px;
 color:white;
-opacity:0.8;
-animation:floatUp linear infinite;
+opacity:0.9;
+animation:loveFall linear infinite;
 }
 
-@keyframes floatUp{
+@keyframes loveFall{
 0%{
-transform:translateY(100vh);
+transform:translateY(-10vh);
 opacity:0;
 }
-50%{
+30%{
 opacity:1;
 }
 100%{
-transform:translateY(-20vh);
+transform:translateY(110vh);
 opacity:0;
 }
 }
@@ -138,10 +139,8 @@ opacity:0;
 <h1 id="question">Will you love me forever? ❤️</h1>
 
 <div class="button-group">
-
 <button id="yes" onclick="showMessage()">Yes 💖</button>
 <button id="no" onmouseover="moveButton()">No 😜</button>
-
 </div>
 
 <div id="message">
@@ -162,25 +161,25 @@ opacity:0;
 
 <script>
 
-/* move NO button off screen */
+/* NO button escapes */
 
 function moveButton(){
 
 var button=document.getElementById("no");
 
-var side=Math.random();
+var maxX=window.innerWidth-button.offsetWidth;
+var maxY=window.innerHeight-button.offsetHeight;
 
-if(side>0.5){
+var x=Math.random()*maxX;
+var y=Math.random()*maxY;
+
 button.style.position="absolute";
-button.style.left="-500px";
-}else{
-button.style.position="absolute";
-button.style.right="-500px";
+button.style.left=x+"px";
+button.style.top=y+"px";
+
 }
 
-}
-
-/* typing love message */
+/* typing love letter */
 
 var text=`You are the most beautiful blessing in my life.
 
@@ -198,9 +197,9 @@ var index=0;
 
 function typeWriter(){
 
-if(index < text.length){
+if(index<text.length){
 
-document.getElementById("loveText").innerHTML += text.charAt(index);
+document.getElementById("loveText").innerHTML+=text.charAt(index);
 
 index++;
 
@@ -210,7 +209,7 @@ setTimeout(typeWriter,40);
 
 }
 
-/* show birthday message */
+/* show message */
 
 function showMessage(){
 
@@ -220,15 +219,11 @@ document.getElementById("question").style.display="none";
 
 document.getElementById("message").style.display="block";
 
-/* start music */
-
 document.getElementById("music").play();
-
-/* start typing */
 
 typeWriter();
 
-/* heart rain */
+/* hearts rain */
 
 for(let i=0;i<70;i++){
 
@@ -248,9 +243,9 @@ document.body.appendChild(heart);
 
 }
 
-/* floating I LOVE YOU */
+/* I LOVE YOU falling */
 
-for(let i=0;i<30;i++){
+for(let i=0;i<40;i++){
 
 let love=document.createElement("div");
 
@@ -260,7 +255,7 @@ love.innerHTML="I Love You ❤️";
 
 love.style.left=Math.random()*100+"vw";
 
-love.style.animationDuration=Math.random()*5+6+"s";
+love.style.animationDuration=Math.random()*4+5+"s";
 
 document.body.appendChild(love);
 
@@ -272,3 +267,4 @@ document.body.appendChild(love);
 
 </body>
 </html>
+```
