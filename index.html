@@ -27,6 +27,7 @@ margin:15px;
 border:none;
 border-radius:30px;
 cursor:pointer;
+transition:0.3s;
 }
 
 #yes{
@@ -43,12 +44,19 @@ position:absolute;
 #message{
 display:none;
 margin-top:30px;
+animation:fadeIn 2s;
 }
 
 img{
 width:260px;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
+margin-top:15px;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 /* floating hearts */
@@ -107,8 +115,9 @@ Happy Birthday My Handsome Husband 🎂
 
 </div>
 
-<audio autoplay loop>
-<source src="Audio.mp3.mpeg" type="audio/mpeg">
+<!-- Music -->
+<audio id="music" loop>
+<source src="Audio.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -141,6 +150,10 @@ document.getElementById("question").style.display="none";
 
 document.getElementById("message").style.display="block";
 
+/* play music */
+
+document.getElementById("music").play();
+
 /* heart rain animation */
 
 for(let i=0;i<80;i++){
@@ -166,6 +179,4 @@ document.body.appendChild(heart);
 </script>
 
 </body>
-
 </html>
-
