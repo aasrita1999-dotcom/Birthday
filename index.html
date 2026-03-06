@@ -9,21 +9,33 @@
 body{
 margin:0;
 height:100vh;
-font-family:Arial;
+font-family: 'Segoe UI', sans-serif;
 text-align:center;
 background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3a5);
 overflow:hidden;
 color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
+/* container */
+
 .container{
-margin-top:120px;
+text-align:center;
+}
+
+/* buttons */
+
+.button-group{
+margin-top:30px;
 }
 
 button{
 padding:15px 35px;
 font-size:20px;
-margin:15px;
+margin:10px;
 border:none;
 border-radius:30px;
 cursor:pointer;
@@ -38,8 +50,10 @@ color:white;
 #no{
 background:#ff1744;
 color:white;
-position:absolute;
+position:relative;
 }
+
+/* message section */
 
 #message{
 display:none;
@@ -51,15 +65,27 @@ img{
 width:260px;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
-margin-top:15px;
+margin-top:20px;
 }
+
+/* typing text */
+
+#loveText{
+font-size:20px;
+max-width:600px;
+margin:auto;
+margin-top:20px;
+line-height:1.6;
+}
+
+/* fade animation */
 
 @keyframes fadeIn{
 from{opacity:0; transform:translateY(20px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-/* floating hearts */
+/* hearts rain */
 
 .heart{
 position:absolute;
@@ -78,6 +104,30 @@ opacity:0;
 }
 }
 
+/* floating I LOVE YOU */
+
+.loveFloat{
+position:absolute;
+font-size:22px;
+color:white;
+opacity:0.8;
+animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+50%{
+opacity:1;
+}
+100%{
+transform:translateY(-20vh);
+opacity:0;
+}
+}
+
 </style>
 </head>
 
@@ -87,9 +137,12 @@ opacity:0;
 
 <h1 id="question">Will you love me forever? ❤️</h1>
 
-<button id="yes" onclick="showMessage()">Yes 💖</button>
+<div class="button-group">
 
+<button id="yes" onclick="showMessage()">Yes 💖</button>
 <button id="no" onmouseover="moveButton()">No 😜</button>
+
+</div>
 
 <div id="message">
 
@@ -97,66 +150,87 @@ opacity:0;
 
 <img src="Photo.jpg">
 
-<p style="font-size:20px;max-width:600px;margin:auto;margin-top:20px">
-
-You are the most beautiful blessing in my life.
-
-Every moment with you is special and I am grateful for every memory we create together.
-
-On your birthday I just want to promise you one thing...
-
-I will love you forever ❤️
-
-Happy Birthday My Handsome Husband 🎂
-
-</p>
+<p id="loveText"></p>
 
 </div>
 
 </div>
 
-<!-- Music -->
 <audio id="music" loop>
 <source src="Audio.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* move NO button */
+/* move NO button off screen */
 
 function moveButton(){
 
 var button=document.getElementById("no");
 
-var x=Math.random()*window.innerWidth;
-var y=Math.random()*window.innerHeight;
+var side=Math.random();
 
-button.style.left=x+"px";
-button.style.top=y+"px";
+if(side>0.5){
+button.style.position="absolute";
+button.style.left="-500px";
+}else{
+button.style.position="absolute";
+button.style.right="-500px";
+}
 
 }
 
-/* show message */
+/* typing love message */
+
+var text=`You are the most beautiful blessing in my life.
+
+Every moment with you feels magical and special.
+
+Your smile lights up my world and your love completes my heart.
+
+On your birthday I want to promise you something very simple but very true...
+
+I will love you forever ❤️
+
+Happy Birthday My Handsome Husband 🎂`;
+
+var index=0;
+
+function typeWriter(){
+
+if(index < text.length){
+
+document.getElementById("loveText").innerHTML += text.charAt(index);
+
+index++;
+
+setTimeout(typeWriter,40);
+
+}
+
+}
+
+/* show birthday message */
 
 function showMessage(){
-
-/* hide question and buttons */
 
 document.getElementById("yes").style.display="none";
 document.getElementById("no").style.display="none";
 document.getElementById("question").style.display="none";
 
-/* show birthday message */
-
 document.getElementById("message").style.display="block";
 
-/* play music */
+/* start music */
 
 document.getElementById("music").play();
 
-/* heart rain animation */
+/* start typing */
 
-for(let i=0;i<80;i++){
+typeWriter();
+
+/* heart rain */
+
+for(let i=0;i<70;i++){
 
 let heart=document.createElement("div");
 
@@ -171,6 +245,24 @@ heart.style.animationDuration=Math.random()*3+3+"s";
 heart.style.fontSize=Math.random()*20+20+"px";
 
 document.body.appendChild(heart);
+
+}
+
+/* floating I LOVE YOU */
+
+for(let i=0;i<30;i++){
+
+let love=document.createElement("div");
+
+love.className="loveFloat";
+
+love.innerHTML="I Love You ❤️";
+
+love.style.left=Math.random()*100+"vw";
+
+love.style.animationDuration=Math.random()*5+6+"s";
+
+document.body.appendChild(love);
 
 }
 
