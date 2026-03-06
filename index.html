@@ -5,7 +5,7 @@
 <title>For My Love ❤️</title>
 
 <style>
-  
+
 body{
 margin:0;
 height:100vh;
@@ -24,11 +24,18 @@ flex-direction:column;
 text-align:center;
 }
 
+/* proposal section */
+
+#proposal{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
 /* couple image */
 
 .couple-photo{
 width:200px;
-height:auto;
 border-radius:20px;
 box-shadow:0 10px 25px rgba(0,0,0,0.5);
 margin-bottom:20px;
@@ -40,13 +47,12 @@ animation:photoFloat 3s ease-in-out infinite alternate;
 from{transform:translateY(0px);}
 to{transform:translateY(-10px);}
 }
-  
-/* button group centered */
+
+/* buttons */
 
 .button-group{
 margin-top:30px;
 display:flex;
-justify-content:center;
 gap:20px;
 }
 
@@ -69,7 +75,7 @@ background:#ff1744;
 color:white;
 }
 
-/* message */
+/* message section */
 
 #message{
 display:none;
@@ -82,7 +88,7 @@ from{transform:scale(0.6);opacity:0;}
 to{transform:scale(1);opacity:1;}
 }
 
-img{
+.birthday-photo{
 width:260px;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
@@ -99,7 +105,7 @@ margin-top:20px;
 line-height:1.6;
 }
 
-/* hearts */
+/* heart rain */
 
 .heart{
 position:absolute;
@@ -150,14 +156,16 @@ animation:explode 1s ease-out forwards;
 
 <div class="container">
 
-<img src="Couple.jpg" class="couple-photo" id="coupleImage">
+<div id="proposal">
 
-<h1 id="question">Will you love me forever? ❤️</h1>
+<img src="Couple.jpg" class="couple-photo">
+
+<h1>Will you love me forever? ❤️</h1>
 
 <div class="button-group">
-
 <button id="yes" onclick="showMessage()">Yes 💖</button>
 <button id="no">No 😜</button>
+</div>
 
 </div>
 
@@ -165,7 +173,7 @@ animation:explode 1s ease-out forwards;
 
 <h2>Happy Birthday My Love 🎂❤️</h2>
 
-<img src="Photo.jpg">
+<img src="Photo.jpg" class="birthday-photo">
 
 <p id="loveText"></p>
 
@@ -179,7 +187,7 @@ animation:explode 1s ease-out forwards;
 
 <script>
 
-/* ESCAPING NO BUTTON */
+/* NO button escaping */
 
 const noBtn=document.getElementById("no");
 
@@ -188,8 +196,8 @@ noBtn.addEventListener("click",moveButton);
 
 function moveButton(){
 
-const maxX=window.innerWidth-120;
-const maxY=window.innerHeight-60;
+const maxX=window.innerWidth-150;
+const maxY=window.innerHeight-80;
 
 const randX=Math.random()*maxX;
 const randY=Math.random()*maxY;
@@ -200,7 +208,7 @@ noBtn.style.top=randY+"px";
 
 }
 
-/* typing message */
+/* typing love message */
 
 var text=`You are the most beautiful blessing in my life.
 
@@ -230,7 +238,7 @@ setTimeout(typeWriter,40);
 
 }
 
-/* fireworks */
+/* fireworks animation */
 
 function createFireworks(){
 
@@ -257,14 +265,11 @@ setTimeout(()=>fire.remove(),1000);
 
 }
 
-/* show message */
+/* show birthday message */
 
 function showMessage(){
 
-document.getElementById("yes").style.display="none";
-document.getElementById("no").style.display="none";
-document.getElementById("question").style.display="none";
-document.getElementById("coupleImage").style.display="none";
+document.getElementById("proposal").style.display="none";
 
 document.getElementById("message").style.display="block";
 
@@ -318,5 +323,3 @@ document.body.appendChild(love);
 
 </body>
 </html>
-
-
