@@ -20,28 +20,22 @@ align-items:center;
 flex-direction:column;
 }
 
-/* cinematic glow */
-
 .container{
 text-align:center;
-animation:glow 4s infinite alternate;
 }
 
-@keyframes glow{
-from{filter:drop-shadow(0 0 10px rgba(255,255,255,0.4))}
-to{filter:drop-shadow(0 0 25px rgba(255,255,255,0.9))}
-}
-
-/* buttons */
+/* button group centered */
 
 .button-group{
 margin-top:30px;
+display:flex;
+justify-content:center;
+gap:20px;
 }
 
 button{
 padding:15px 35px;
 font-size:20px;
-margin:10px;
 border:none;
 border-radius:30px;
 cursor:pointer;
@@ -56,7 +50,6 @@ color:white;
 #no{
 background:#ff1744;
 color:white;
-position:absolute;
 }
 
 /* message */
@@ -64,11 +57,11 @@ position:absolute;
 #message{
 display:none;
 margin-top:30px;
-animation:zoomIn 2s;
+animation:zoomIn 1.5s;
 }
 
 @keyframes zoomIn{
-from{transform:scale(0.5);opacity:0;}
+from{transform:scale(0.6);opacity:0;}
 to{transform:scale(1);opacity:1;}
 }
 
@@ -89,7 +82,7 @@ margin-top:20px;
 line-height:1.6;
 }
 
-/* heart rain */
+/* hearts */
 
 .heart{
 position:absolute;
@@ -102,7 +95,7 @@ animation:fall linear infinite;
 100%{transform:translateY(110vh);opacity:0;}
 }
 
-/* I LOVE YOU falling */
+/* I LOVE YOU falling from TOP */
 
 .loveFloat{
 position:absolute;
@@ -129,14 +122,8 @@ animation:explode 1s ease-out forwards;
 }
 
 @keyframes explode{
-0%{
-transform:scale(1);
-opacity:1;
-}
-100%{
-transform:translate(var(--x),var(--y)) scale(2);
-opacity:0;
-}
+0%{transform:scale(1);opacity:1;}
+100%{transform:translate(var(--x),var(--y)) scale(2);opacity:0;}
 }
 
 </style>
@@ -182,15 +169,19 @@ noBtn.addEventListener("click",moveButton);
 
 function moveButton(){
 
-let x=Math.random()*(window.innerWidth-120);
-let y=Math.random()*(window.innerHeight-60);
+const maxX=window.innerWidth-120;
+const maxY=window.innerHeight-60;
 
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+const randX=Math.random()*maxX;
+const randY=Math.random()*maxY;
+
+noBtn.style.position="fixed";
+noBtn.style.left=randX+"px";
+noBtn.style.top=randY+"px";
 
 }
 
-/* typing text */
+/* typing message */
 
 var text=`You are the most beautiful blessing in my life.
 
@@ -220,7 +211,7 @@ setTimeout(typeWriter,40);
 
 }
 
-/* fireworks effect */
+/* fireworks */
 
 function createFireworks(){
 
@@ -263,7 +254,7 @@ typeWriter();
 
 createFireworks();
 
-/* heart rain */
+/* hearts */
 
 for(let i=0;i<70;i++){
 
