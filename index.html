@@ -20,6 +20,44 @@ align-items:center;
 flex-direction:column;
 }
 
+/* INTRO SCREEN */
+
+#intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#ff4e50,#fc913a);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+#intro h1{
+font-size:40px;
+margin-bottom:20px;
+}
+
+#intro p{
+font-size:22px;
+margin-bottom:30px;
+}
+
+#startBtn{
+padding:15px 40px;
+font-size:20px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4e50;
+cursor:pointer;
+}
+
+/* CONTAINER */
+
 .container{
 text-align:center;
 }
@@ -27,7 +65,7 @@ text-align:center;
 /* proposal section */
 
 #proposal{
-display:flex;
+display:none;
 flex-direction:column;
 align-items:center;
 }
@@ -62,7 +100,6 @@ font-size:20px;
 border:none;
 border-radius:30px;
 cursor:pointer;
-transition:0.3s;
 }
 
 #yes{
@@ -75,7 +112,7 @@ background:#ff1744;
 color:white;
 }
 
-/* message section */
+/* message */
 
 #message{
 display:none;
@@ -105,7 +142,7 @@ margin-top:20px;
 line-height:1.6;
 }
 
-/* heart rain */
+/* hearts rain */
 
 .heart{
 position:absolute;
@@ -114,23 +151,21 @@ animation:fall linear infinite;
 }
 
 @keyframes fall{
-0%{transform:translateY(-10vh);opacity:1;}
-100%{transform:translateY(110vh);opacity:0;}
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
 }
 
-/* I LOVE YOU falling from TOP */
+/* I LOVE YOU falling */
 
 .loveFloat{
 position:absolute;
 font-size:22px;
-opacity:0.9;
 animation:loveDown linear infinite;
 }
 
 @keyframes loveDown{
-0%{transform:translateY(-10vh);opacity:0;}
-50%{opacity:1;}
-100%{transform:translateY(110vh);opacity:0;}
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
 }
 
 /* fireworks */
@@ -149,10 +184,54 @@ animation:explode 1s ease-out forwards;
 100%{transform:translate(var(--x),var(--y)) scale(2);opacity:0;}
 }
 
+/* ending screen */
+
+#ending{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:2000;
+}
+
+.glow-heart{
+font-size:120px;
+animation:heartBeat 1.5s infinite;
+}
+
+.ending-text{
+font-size:40px;
+margin-top:20px;
+}
+
+@keyframes heartBeat{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- INTRO -->
+
+<div id="intro">
+
+<h1>❤️ A Little Surprise ❤️</h1>
+
+<p>For the most special person in my life...</p>
+
+<button id="startBtn" onclick="startSite()">Start the Surprise 💌</button>
+
+</div>
 
 <div class="container">
 
@@ -163,8 +242,10 @@ animation:explode 1s ease-out forwards;
 <h1>Will you love me forever? ❤️</h1>
 
 <div class="button-group">
+
 <button id="yes" onclick="showMessage()">Yes 💖</button>
 <button id="no">No 😜</button>
+
 </div>
 
 </div>
@@ -181,18 +262,32 @@ animation:explode 1s ease-out forwards;
 
 </div>
 
+<div id="ending">
+
+<div class="glow-heart">❤️</div>
+
+<div class="ending-text">Forever With You ❤️</div>
+
+</div>
+
 <audio id="music" loop>
 <source src="Audio.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* NO button escaping */
+/* start intro */
+
+function startSite(){
+document.getElementById("intro").style.display="none";
+document.getElementById("proposal").style.display="flex";
+}
+
+/* escaping NO button */
 
 const noBtn=document.getElementById("no");
 
 noBtn.addEventListener("mouseenter",moveButton);
-noBtn.addEventListener("click",moveButton);
 
 function moveButton(){
 
@@ -208,7 +303,7 @@ noBtn.style.top=randY+"px";
 
 }
 
-/* typing love message */
+/* typing message */
 
 var text=`You are the most beautiful blessing in my life.
 
@@ -220,7 +315,7 @@ On your birthday I want to promise you something very simple but very true...
 
 I will love you forever ❤️
 
-Happy Birthday My Dear Handsome Husband 😘💋🎂;
+Happy Birthday My Handsome Husband 🎂`;
 
 var index=0;
 
@@ -234,11 +329,15 @@ index++;
 
 setTimeout(typeWriter,40);
 
-}
+}else{
+
+setTimeout(showEnding,2000);
 
 }
 
-/* fireworks animation */
+}
+
+/* fireworks */
 
 function createFireworks(){
 
@@ -265,18 +364,16 @@ setTimeout(()=>fire.remove(),1000);
 
 }
 
-/* show birthday message */
+/* show message */
 
 function showMessage(){
 
 document.getElementById("proposal").style.display="none";
-
 document.getElementById("message").style.display="block";
 
 document.getElementById("music").play();
 
 typeWriter();
-
 createFireworks();
 
 /* hearts */
@@ -284,16 +381,10 @@ createFireworks();
 for(let i=0;i<70;i++){
 
 let heart=document.createElement("div");
-
 heart.className="heart";
-
 heart.innerHTML="💖";
-
 heart.style.left=Math.random()*100+"vw";
-
 heart.style.animationDuration=Math.random()*3+3+"s";
-
-heart.style.fontSize=Math.random()*20+20+"px";
 
 document.body.appendChild(heart);
 
@@ -304,13 +395,9 @@ document.body.appendChild(heart);
 for(let i=0;i<30;i++){
 
 let love=document.createElement("div");
-
 love.className="loveFloat";
-
 love.innerHTML="I Love You ❤️";
-
 love.style.left=Math.random()*100+"vw";
-
 love.style.animationDuration=Math.random()*5+6+"s";
 
 document.body.appendChild(love);
@@ -319,8 +406,15 @@ document.body.appendChild(love);
 
 }
 
+/* ending */
+
+function showEnding(){
+
+document.getElementById("ending").style.display="flex";
+
+}
+
 </script>
 
 </body>
 </html>
-
